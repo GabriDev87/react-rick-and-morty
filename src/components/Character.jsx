@@ -1,6 +1,13 @@
 import PropTypes from "prop-types";
 
 function Character({ character }) {
+  Character.propTypes = {
+    character: PropTypes.shape({
+      image: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      species: PropTypes.string.isRequired,
+    }).isRequired,
+  };
   return (
     <div className="w-full max-w-xs bg-white border border-teal-300 rounded-lg shadow dark:bg-gray-800 dark:border-teal-300">
       <a href="#">
@@ -25,13 +32,5 @@ function Character({ character }) {
     </div>
   );
 }
-
-Character.propTypes = {
-  character: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    species: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Character;
