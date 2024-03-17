@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function Character({ character }) {
   return (
-    <div className="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full max-w-xs bg-white border border-teal-300 rounded-lg shadow dark:bg-gray-800 dark:border-teal-300">
       <a href="#">
         <img
           className="rounded-t-lg w-full"
