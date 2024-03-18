@@ -6,10 +6,30 @@ function Character({ character }) {
       image: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       species: PropTypes.string.isRequired,
+      status: PropTypes.string.isRequired,
     }).isRequired,
   };
   return (
-    <div className="w-full max-w-xs bg-white border border-teal-300 rounded-lg shadow dark:bg-gray-800 dark:border-teal-300">
+    <div
+      className={`w-full max-w-xs bg-white border ${
+        character.status === "Dead"
+          ? "border-red-500"
+          : character.status === "Alive"
+          ? "border-green-500"
+          : "border-yellow-500"
+      } rounded-lg shadow dark:bg-gray-800`}
+    >
+      <span
+        className={`absolute px-2 py-1 text-xs font-bold uppercase rounded ${
+          character.status === "Dead"
+            ? "bg-red-500"
+            : character.status === "Alive"
+            ? "bg-green-500"
+            : "bg-yellow-500"
+        }`}
+      >
+        {character.status}
+      </span>
       <a href="#">
         <img
           className="rounded-t-lg w-full"
