@@ -114,7 +114,6 @@ function FilterAndShearchBar({
 
   return (
     <div className="flex items-center justify-center p-1 pb-4">
-      
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <SearchBar setSearchName={setSearchName} />
         <Select type="Species" list={speciesList} function={setSearchSpecies} />

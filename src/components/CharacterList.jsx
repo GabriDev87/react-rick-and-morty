@@ -1,33 +1,8 @@
-import PropTypes from "prop-types";
 import Character from "./Character";
 import NotFound from "./NotFound";
 import FilterAndShearchBar from "./FilterAndSearchBar";
-
-import { useEffect, useState } from "react";
-
-function LoadMore(props) {
-  function handleClick() {
-    props.setPage((page) => page + 1);
-  }
-  return (
-    <div className="flex justify-center p-4">
-      <button
-        onClick={handleClick}
-        type="button"
-        className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-teal-300 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-teal-700 dark:hover:border-teal-300 dark:focus:ring-teal-300"
-      >
-        Prev
-      </button>
-      <button
-        onClick={handleClick}
-        type="button"
-        className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-teal-300 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-teal-700 dark:hover:border-teal-300 dark:focus:ring-teal-300"
-      >
-        Next
-      </button>
-    </div>
-  );
-}
+import ReactPaginate from "react-paginate";
+import { useEffect, useState } from "react"
 
 function CharacterList() {
   const [characters, setCharacters] = useState([]);
@@ -37,6 +12,7 @@ function CharacterList() {
   const [searchGender, setSearchGender] = useState("");
   const [searchStatus, setSearchStatus] = useState("");
   const [dataFound, setDataFound] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
 
   const api = `https://rickandmortyapi.com/api/character?page=${page}&name=${searchName}&status=${searchStatus}&gender=${searchGender}&species=${searchSpecies}`;
   useEffect(() => {
@@ -46,12 +22,17 @@ function CharacterList() {
       if (data.results && data.results.length > 0) {
         setCharacters(data.results);
         setDataFound(true);
+        setTotalPages(data.info.pages);
       } else {
         setDataFound(false);
       }
     }
     fetchData();
   }, [api]);
+
+  function handleClick(data) {
+    setPage(data.selected + 1);
+  }
 
   return (
     <div>
@@ -63,14 +44,37 @@ function CharacterList() {
       />
       {dataFound ? (
         <div>
-          <div className="flex flex-col items-center justify-center min-h-screen">
+          <div className="flex flex-col items-center justify-center min-h-screen pb-5">
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {characters.map((character) => (
                 <Character key={character.id} character={character} />
               ))}
             </div>
-            <LoadMore page={page} setPage={setPage} />
           </div>
+          <ReactPaginate
+              previousLabel={"Prev"}
+              nextLabel={"Next"}
+              breakLabel={"..."}
+              breakClassName={"flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"}
+              pageCount={totalPages}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={4}
+              onPageChange={handleClick}
+              containerClassName={"flex items-center justify-center text-base h-10 p-5 pb-5"}
+              previousLinkClassName={
+                "flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              }
+              nextLinkClassName={
+                "flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              }
+              pageLinkClassName={
+                "flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              }
+              activeClassName={
+                "flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-gray-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+              }
+            />
+          
         </div>
       ) : (
         <NotFound />
@@ -79,9 +83,6 @@ function CharacterList() {
   );
 }
 
-LoadMore.propTypes = {
-  page: PropTypes.number.isRequired,
-  setPage: PropTypes.func.isRequired,
-};
+
 
 export default CharacterList;
