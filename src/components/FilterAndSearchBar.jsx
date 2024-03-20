@@ -1,9 +1,16 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function SearchBar({ setSearchName, setPage }) {
+function SearchBar({ setSearchName, setPage, searchName }) {
   SearchBar.propTypes = { setSearchName: PropTypes.func.isRequired };
   SearchBar.propTypes = { setPage: PropTypes.func.isRequired };
+  SearchBar.propTypes = { searchName: PropTypes.string.isRequired };
+
+  const [inputValue, setInputValue] = useState(searchName);
+  
+  useEffect(() => {
+    setInputValue(searchName);
+  }, [searchName]);
 
   function handleSearchName(event) {
     setSearchName(event.target.value);
@@ -34,6 +41,7 @@ function SearchBar({ setSearchName, setPage }) {
           type="search"
           id="default-search"
           onChange={handleSearchName}
+          value={inputValue}
           className="block w-full h-12 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-teal-300 focus:border-teal300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-300 dark:focus:border-teal-300"
           placeholder="Filter by name..."
           required
@@ -52,7 +60,11 @@ function Select(props) {
     value: PropTypes.string,
   };
 
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(props.value);
+
+  useEffect(() => {
+    setSelectedValue(props.value);
+  }, [props.value]);
 
   function handleSelectedValue(event) {
     props.setPage(1);
@@ -92,6 +104,10 @@ function FilterAndShearchBar({
   setSearchSpecies,
   setSearchGender,
   setSearchStatus,
+  searchSpecies,
+  searchGender,
+  searchStatus,
+  searchName
 }) {
   FilterAndShearchBar.propTypes = {
     setPage: PropTypes.func.isRequired,
@@ -99,6 +115,10 @@ function FilterAndShearchBar({
     setSearchSpecies: PropTypes.func.isRequired,
     setSearchGender: PropTypes.func.isRequired,
     setSearchStatus: PropTypes.func.isRequired,
+    searchSpecies: PropTypes.string.isRequired,
+    searchGender: PropTypes.string.isRequired,
+    searchStatus: PropTypes.string.isRequired,
+    searchName: PropTypes.string.isRequired,
   };
 
   const statusList = ["All", "Alive", "Dead", "Unknown"];
@@ -128,24 +148,27 @@ function FilterAndShearchBar({
   return (
     <div className="flex items-center justify-center p-1 pb-4">
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        <SearchBar setSearchName={setSearchName} setPage={setPage} />
+        <SearchBar setSearchName={setSearchName} setPage={setPage} searchName={searchName} />
         <Select
           type="Species"
           list={speciesList}
           function={setSearchSpecies}
           setPage={setPage}
+          value={searchSpecies}
         />
         <Select
           type="Gender"
           list={genderList}
           function={setSearchGender}
           setPage={setPage}
+          value={searchGender}
         />
         <Select
           type="Status"
           list={statusList}
           function={setSearchStatus}
           setPage={setPage}
+          value={searchStatus}
         />
         <button
           type="button"
