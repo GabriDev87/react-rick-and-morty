@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-function SearchBar({ setSearchName }) {
+function SearchBar({ setSearchName, setPage }) {
   SearchBar.propTypes = { setSearchName: PropTypes.func.isRequired };
+  SearchBar.propTypes = { setPage: PropTypes.func.isRequired };
 
   function handleSearchName(event) {
-    console.log(event.target.value);
     setSearchName(event.target.value);
+    setPage(1);
   }
 
   return (
@@ -47,11 +48,15 @@ function Select(props) {
     type: PropTypes.string.isRequired,
     list: PropTypes.arrayOf(PropTypes.string).isRequired,
     function: PropTypes.func.isRequired,
+    setPage: PropTypes.func.isRequired,
+    value: PropTypes.string,
   };
 
   const [selectedValue, setSelectedValue] = useState("");
 
   function handleSelectedValue(event) {
+
+    props.setPage(1);
     if (event.target.value === "All") {
       setSelectedValue("");
       props.function("");
@@ -83,12 +88,14 @@ function Select(props) {
 }
 
 function FilterAndShearchBar({
+  setPage,
   setSearchName,
   setSearchSpecies,
   setSearchGender,
   setSearchStatus,
 }) {
   FilterAndShearchBar.propTypes = {
+    setPage: PropTypes.func.isRequired,
     setSearchName: PropTypes.func.isRequired,
     setSearchSpecies: PropTypes.func.isRequired,
     setSearchGender: PropTypes.func.isRequired,
@@ -112,13 +119,42 @@ function FilterAndShearchBar({
     "Unknown",
   ];
 
+  function handleClearFilters() {
+    setPage(1);
+    setSearchName("");
+    setSearchSpecies("");
+    setSearchGender("");
+    setSearchStatus("");
+  }
   return (
     <div className="flex items-center justify-center p-1 pb-4">
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <SearchBar setSearchName={setSearchName} />
-        <Select type="Species" list={speciesList} function={setSearchSpecies} />
-        <Select type="Gender" list={genderList} function={setSearchGender} />
-        <Select type="Status" list={statusList} function={setSearchStatus} />
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <SearchBar setSearchName={setSearchName} setPage={setPage} />
+        <Select
+          type="Species"
+          list={speciesList}
+          function={setSearchSpecies}
+          setPage={setPage}
+        />
+        <Select
+          type="Gender"
+          list={genderList}
+          function={setSearchGender}
+          setPage={setPage}
+        />
+        <Select
+          type="Status"
+          list={statusList}
+          function={setSearchStatus}
+          setPage={setPage}
+        />
+        <button
+          type="button"
+          onClick={handleClearFilters}
+          className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+        >
+          Clear Filters
+        </button>
       </div>
     </div>
   );

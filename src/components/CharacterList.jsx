@@ -37,6 +37,7 @@ function CharacterList() {
   return (
     <div>
       <FilterAndShearchBar
+        setPage={setPage}
         setSearchName={setSearchName}
         setSearchSpecies={setSearchSpecies}
         setSearchGender={setSearchGender}
@@ -51,6 +52,7 @@ function CharacterList() {
               ))}
             </div>
             <ReactPaginate
+              forcePage={page - 1}
               previousLabel={"Prev"}
               nextLabel={"Next"}
               breakLabel={"..."}

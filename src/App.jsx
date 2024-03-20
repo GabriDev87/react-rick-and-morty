@@ -2,9 +2,9 @@ import CharacterList from "./components/CharacterList";
 import Footer from "./components/Footer";
 import Logo from "./components/Logo";
 import NavBar from "./components/NavBar";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 function App() {
   return (
