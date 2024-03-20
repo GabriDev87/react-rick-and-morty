@@ -42,6 +42,7 @@ function CharacterList() {
         setSearchSpecies={setSearchSpecies}
         setSearchGender={setSearchGender}
         setSearchStatus={setSearchStatus}
+        searchSpecies = {searchSpecies}
       />
       {dataFound ? (
         <div>

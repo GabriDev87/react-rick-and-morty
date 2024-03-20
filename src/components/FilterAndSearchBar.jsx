@@ -55,7 +55,6 @@ function Select(props) {
   const [selectedValue, setSelectedValue] = useState("");
 
   function handleSelectedValue(event) {
-
     props.setPage(1);
     if (event.target.value === "All") {
       setSelectedValue("");
