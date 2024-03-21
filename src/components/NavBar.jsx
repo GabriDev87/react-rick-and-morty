@@ -14,6 +14,7 @@ function NavBar({ navState, setNavState }) {
         <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={iconNavBar} className="h-8" alt="iconNavBar" />
         </a>
+        {false && (
         <button
           data-collapse-toggle="navbar-default"
           type="button"
@@ -38,8 +39,10 @@ function NavBar({ navState, setNavState }) {
             />
           </svg>
         </button>
+        )}
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            {false && (
             <li>
               <a
                 href="#"
@@ -54,6 +57,7 @@ function NavBar({ navState, setNavState }) {
                 Characters
               </a>
             </li>
+            )}
             {false && (
             <li>
               <a
