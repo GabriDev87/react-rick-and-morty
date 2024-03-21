@@ -54,6 +54,7 @@ function NavBar({ navState, setNavState }) {
                 Characters
               </a>
             </li>
+            {false && (
             <li>
               <a
                 href="#"
@@ -68,6 +69,8 @@ function NavBar({ navState, setNavState }) {
                 Locations
               </a>
             </li>
+            )}
+            {false && (
             <li>
               <a
                 href="#"
@@ -82,6 +85,7 @@ function NavBar({ navState, setNavState }) {
                 Episodes
               </a>
             </li>
+            )}
           </ul>
         </div>
       </div>
