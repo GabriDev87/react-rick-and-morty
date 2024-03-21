@@ -1,18 +1,12 @@
 import iconNavBar from "../assets/iconNavBar.svg";
 import PropTypes from "prop-types";
 
-
-function NavBar({navState, setNavState}) {
-
-  NavBar.PropTypes = {
-    navState: PropTypes.string.isRequired,
-    setNavState: PropTypes.func.isRequired,
-  }
-
+function NavBar({ navState, setNavState }) {
+  NavBar.propTypes = { navState: PropTypes.string.isRequired };
+  NavBar.propTypes = { setNavState: PropTypes.func.isRequired };
 
   function handleClick(event) {
     setNavState(event.target.innerText);
-    console.log(event.target.innerText);
   }
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -50,7 +44,12 @@ function NavBar({navState, setNavState}) {
               <a
                 href="#"
                 onClick={handleClick}
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-300 md:p-0 dark:text-white md:dark:hover:text-teal-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                className={`block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-300 md:p-0 dark:text-white md:dark:hover:text-teal-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent
+                ${
+                  navState === "Characters"
+                    ? "dark:text-teal-300"
+                    : "dark:text-white"
+                }`}
               >
                 Characters
               </a>
@@ -59,7 +58,12 @@ function NavBar({navState, setNavState}) {
               <a
                 href="#"
                 onClick={handleClick}
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-300 md:p-0 dark:text-white md:dark:hover:text-teal-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                className={`block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-300 md:p-0 dark:text-white md:dark:hover:text-teal-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent
+                ${
+                  navState === "Locations"
+                    ? "dark:text-teal-300"
+                    : "dark:text-white"
+                }`}
               >
                 Locations
               </a>
@@ -68,7 +72,12 @@ function NavBar({navState, setNavState}) {
               <a
                 href="#"
                 onClick={handleClick}
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-300 md:p-0 dark:text-white md:dark:hover:text-teal-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                className={`block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-300 md:p-0 dark:text-white md:dark:hover:text-teal-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent
+                ${
+                  navState === "Episodes"
+                    ? "dark:text-teal-300"
+                    : "dark:text-white"
+                }`}
               >
                 Episodes
               </a>

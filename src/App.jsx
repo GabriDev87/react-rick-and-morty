@@ -15,7 +15,7 @@ function App() {
     <div className="dark:bg-gray-800">
       <NavBar navState={navState} setNavState={setNavState}/>
       <Logo />
-      <CharacterList />
+      {navState === "Characters" && <CharacterList />}
       <Footer />
     </div>
   );
