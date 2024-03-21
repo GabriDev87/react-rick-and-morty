@@ -87,7 +87,7 @@ function Character({ character }) {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Character Details"
-        className="flex items-center justify-center outline-none overflow-auto dark:bg-gray-800 rounded-lg px-8 py-6 max-w-[500px] max-h-[900px] sm:w-1/2 sm:h-1/2 mx-auto mt-20"
+        className="flex items-center justify-center outline-none overflow-auto dark:bg-gray-800 rounded-lg px-8 py-6 max-w-[500px] max-h-[900px] sm:w-1/2 sm:h-1/2 mx-auto mt-5"
       >
         <div
           className={`w-full max-w-xs bg-white border ${
